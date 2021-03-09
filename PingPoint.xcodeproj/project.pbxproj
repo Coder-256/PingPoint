@@ -7,13 +7,51 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		5D1AEBC625F7EE0F0016716E /* PingManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5D1AEBC525F7EE0F0016716E /* PingManager.swift */; };
+		5D1AEBCA25F7EE270016716E /* XPC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5D1AEBC925F7EE270016716E /* XPC.swift */; };
+		5D1AEBDB25F7EE470016716E /* PingHelper.xpc in Embed XPC Services */ = {isa = PBXBuildFile; fileRef = 5D1AEBD025F7EE470016716E /* PingHelper.xpc */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
+		5D1AEBE925F7EE630016716E /* ReadLines.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5D1AEBE525F7EE630016716E /* ReadLines.swift */; };
+		5D1AEBEA25F7EE630016716E /* main.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5D1AEBE625F7EE630016716E /* main.swift */; };
+		5D1AEBEB25F7EE630016716E /* PingHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5D1AEBE725F7EE630016716E /* PingHelper.swift */; };
+		5D1AEBEE25F7EE6D0016716E /* XPC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5D1AEBC925F7EE270016716E /* XPC.swift */; };
 		5DBE5D2025F7C64100945840 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5DBE5D1F25F7C64100945840 /* AppDelegate.swift */; };
 		5DBE5D2225F7C64100945840 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5DBE5D2125F7C64100945840 /* ViewController.swift */; };
 		5DBE5D2425F7C64200945840 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 5DBE5D2325F7C64200945840 /* Assets.xcassets */; };
 		5DBE5D2725F7C64200945840 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 5DBE5D2525F7C64200945840 /* Main.storyboard */; };
 /* End PBXBuildFile section */
 
+/* Begin PBXContainerItemProxy section */
+		5D1AEBD925F7EE470016716E /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 5DBE5D1425F7C64100945840 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 5D1AEBCF25F7EE470016716E;
+			remoteInfo = PingHelper;
+		};
+/* End PBXContainerItemProxy section */
+
+/* Begin PBXCopyFilesBuildPhase section */
+		5D1AEBDF25F7EE470016716E /* Embed XPC Services */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = "$(CONTENTS_FOLDER_PATH)/XPCServices";
+			dstSubfolderSpec = 16;
+			files = (
+				5D1AEBDB25F7EE470016716E /* PingHelper.xpc in Embed XPC Services */,
+			);
+			name = "Embed XPC Services";
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXCopyFilesBuildPhase section */
+
 /* Begin PBXFileReference section */
+		5D1AEBC525F7EE0F0016716E /* PingManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PingManager.swift; sourceTree = "<group>"; };
+		5D1AEBC925F7EE270016716E /* XPC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = XPC.swift; sourceTree = "<group>"; };
+		5D1AEBD025F7EE470016716E /* PingHelper.xpc */ = {isa = PBXFileReference; explicitFileType = "wrapper.xpc-service"; includeInIndex = 0; path = PingHelper.xpc; sourceTree = BUILT_PRODUCTS_DIR; };
+		5D1AEBD825F7EE470016716E /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		5D1AEBE525F7EE630016716E /* ReadLines.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ReadLines.swift; sourceTree = "<group>"; };
+		5D1AEBE625F7EE630016716E /* main.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = main.swift; sourceTree = "<group>"; };
+		5D1AEBE725F7EE630016716E /* PingHelper.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PingHelper.swift; sourceTree = "<group>"; };
 		5DBE5D1C25F7C64100945840 /* PingPoint.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = PingPoint.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		5DBE5D1F25F7C64100945840 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		5DBE5D2125F7C64100945840 /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
@@ -24,6 +62,13 @@
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
+		5D1AEBCD25F7EE470016716E /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		5DBE5D1925F7C64100945840 /* Frameworks */ = {
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
@@ -34,10 +79,31 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		5D1AEBC825F7EE220016716E /* Shared */ = {
+			isa = PBXGroup;
+			children = (
+				5D1AEBC925F7EE270016716E /* XPC.swift */,
+			);
+			path = Shared;
+			sourceTree = "<group>";
+		};
+		5D1AEBD125F7EE470016716E /* PingHelper */ = {
+			isa = PBXGroup;
+			children = (
+				5D1AEBE725F7EE630016716E /* PingHelper.swift */,
+				5D1AEBE525F7EE630016716E /* ReadLines.swift */,
+				5D1AEBE625F7EE630016716E /* main.swift */,
+				5D1AEBD825F7EE470016716E /* Info.plist */,
+			);
+			path = PingHelper;
+			sourceTree = "<group>";
+		};
 		5DBE5D1325F7C64100945840 = {
 			isa = PBXGroup;
 			children = (
+				5D1AEBC825F7EE220016716E /* Shared */,
 				5DBE5D1E25F7C64100945840 /* PingPoint */,
+				5D1AEBD125F7EE470016716E /* PingHelper */,
 				5DBE5D1D25F7C64100945840 /* Products */,
 			);
 			sourceTree = "<group>";
@@ -46,6 +112,7 @@
 			isa = PBXGroup;
 			children = (
 				5DBE5D1C25F7C64100945840 /* PingPoint.app */,
+				5D1AEBD025F7EE470016716E /* PingHelper.xpc */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -55,6 +122,7 @@
 			children = (
 				5DBE5D1F25F7C64100945840 /* AppDelegate.swift */,
 				5DBE5D2125F7C64100945840 /* ViewController.swift */,
+				5D1AEBC525F7EE0F0016716E /* PingManager.swift */,
 				5DBE5D2325F7C64200945840 /* Assets.xcassets */,
 				5DBE5D2525F7C64200945840 /* Main.storyboard */,
 				5DBE5D2825F7C64200945840 /* Info.plist */,
@@ -66,6 +134,23 @@
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
+		5D1AEBCF25F7EE470016716E /* PingHelper */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 5D1AEBDC25F7EE470016716E /* Build configuration list for PBXNativeTarget "PingHelper" */;
+			buildPhases = (
+				5D1AEBCC25F7EE470016716E /* Sources */,
+				5D1AEBCD25F7EE470016716E /* Frameworks */,
+				5D1AEBCE25F7EE470016716E /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = PingHelper;
+			productName = PingHelper;
+			productReference = 5D1AEBD025F7EE470016716E /* PingHelper.xpc */;
+			productType = "com.apple.product-type.xpc-service";
+		};
 		5DBE5D1B25F7C64100945840 /* PingPoint */ = {
 			isa = PBXNativeTarget;
 			buildConfigurationList = 5DBE5D2C25F7C64200945840 /* Build configuration list for PBXNativeTarget "PingPoint" */;
@@ -73,10 +158,12 @@
 				5DBE5D1825F7C64100945840 /* Sources */,
 				5DBE5D1925F7C64100945840 /* Frameworks */,
 				5DBE5D1A25F7C64100945840 /* Resources */,
+				5D1AEBDF25F7EE470016716E /* Embed XPC Services */,
 			);
 			buildRules = (
 			);
 			dependencies = (
+				5D1AEBDA25F7EE470016716E /* PBXTargetDependency */,
 			);
 			name = PingPoint;
 			productName = PingPoint;
@@ -92,6 +179,10 @@
 				LastSwiftUpdateCheck = 1240;
 				LastUpgradeCheck = 1240;
 				TargetAttributes = {
+					5D1AEBCF25F7EE470016716E = {
+						CreatedOnToolsVersion = 12.4;
+						LastSwiftMigration = 1240;
+					};
 					5DBE5D1B25F7C64100945840 = {
 						CreatedOnToolsVersion = 12.4;
 					};
@@ -111,11 +202,19 @@
 			projectRoot = "";
 			targets = (
 				5DBE5D1B25F7C64100945840 /* PingPoint */,
+				5D1AEBCF25F7EE470016716E /* PingHelper */,
 			);
 		};
 /* End PBXProject section */
 
 /* Begin PBXResourcesBuildPhase section */
+		5D1AEBCE25F7EE470016716E /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		5DBE5D1A25F7C64100945840 /* Resources */ = {
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
@@ -128,16 +227,37 @@
 /* End PBXResourcesBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
+		5D1AEBCC25F7EE470016716E /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				5D1AEBE925F7EE630016716E /* ReadLines.swift in Sources */,
+				5D1AEBEE25F7EE6D0016716E /* XPC.swift in Sources */,
+				5D1AEBEB25F7EE630016716E /* PingHelper.swift in Sources */,
+				5D1AEBEA25F7EE630016716E /* main.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		5DBE5D1825F7C64100945840 /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				5D1AEBC625F7EE0F0016716E /* PingManager.swift in Sources */,
 				5DBE5D2225F7C64100945840 /* ViewController.swift in Sources */,
 				5DBE5D2025F7C64100945840 /* AppDelegate.swift in Sources */,
+				5D1AEBCA25F7EE270016716E /* XPC.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXSourcesBuildPhase section */
+
+/* Begin PBXTargetDependency section */
+		5D1AEBDA25F7EE470016716E /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 5D1AEBCF25F7EE470016716E /* PingHelper */;
+			targetProxy = 5D1AEBD925F7EE470016716E /* PBXContainerItemProxy */;
+		};
+/* End PBXTargetDependency section */
 
 /* Begin PBXVariantGroup section */
 		5DBE5D2525F7C64200945840 /* Main.storyboard */ = {
@@ -151,6 +271,49 @@
 /* End PBXVariantGroup section */
 
 /* Begin XCBuildConfiguration section */
+		5D1AEBDD25F7EE470016716E /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CLANG_ENABLE_MODULES = YES;
+				CODE_SIGN_STYLE = Automatic;
+				COMBINE_HIDPI_IMAGES = YES;
+				DEVELOPMENT_TEAM = 4887UFF4KD;
+				ENABLE_HARDENED_RUNTIME = YES;
+				INFOPLIST_FILE = PingHelper/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/../Frameworks",
+					"@loader_path/../Frameworks",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = me.jacobgreenfield.PingHelper;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SKIP_INSTALL = YES;
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
+				SWIFT_VERSION = 5.0;
+			};
+			name = Debug;
+		};
+		5D1AEBDE25F7EE470016716E /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CLANG_ENABLE_MODULES = YES;
+				CODE_SIGN_STYLE = Automatic;
+				COMBINE_HIDPI_IMAGES = YES;
+				DEVELOPMENT_TEAM = 4887UFF4KD;
+				ENABLE_HARDENED_RUNTIME = YES;
+				INFOPLIST_FILE = PingHelper/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/../Frameworks",
+					"@loader_path/../Frameworks",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = me.jacobgreenfield.PingHelper;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SKIP_INSTALL = YES;
+				SWIFT_VERSION = 5.0;
+			};
+			name = Release;
+		};
 		5DBE5D2A25F7C64200945840 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
@@ -269,6 +432,7 @@
 		5DBE5D2D25F7C64200945840 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_ENTITLEMENTS = PingPoint/PingPoint.entitlements;
@@ -290,6 +454,7 @@
 		5DBE5D2E25F7C64200945840 /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_ENTITLEMENTS = PingPoint/PingPoint.entitlements;
@@ -311,6 +476,15 @@
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
+		5D1AEBDC25F7EE470016716E /* Build configuration list for PBXNativeTarget "PingHelper" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				5D1AEBDD25F7EE470016716E /* Debug */,
+				5D1AEBDE25F7EE470016716E /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
 		5DBE5D1725F7C64100945840 /* Build configuration list for PBXProject "PingPoint" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
