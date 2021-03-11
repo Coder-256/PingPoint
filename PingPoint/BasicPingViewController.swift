@@ -12,6 +12,7 @@ class BasicPingViewController: NSViewController {
     var pingManager: PingManager!
     var spaceObserver: NSObjectProtocol? = nil
     var window: NSPanel! { view.window as? NSPanel }
+    var placeRight: Bool = true
 
     func setText(_ string: String, color: NSColor? = nil) {
         var attributes: [NSAttributedString.Key: Any] = [
@@ -26,8 +27,11 @@ class BasicPingViewController: NSViewController {
 
     func placeWindow() {
         let screenFrame = view.window!.screen!.frame
-        window.setFrameOrigin(NSPoint(x: screenFrame.maxX - view.frame.width, y: screenFrame.minY))
-        //window.setFrameOrigin(screenFrame.origin)
+        if placeRight {
+            window.setFrameOrigin(NSPoint(x: screenFrame.maxX - view.frame.width, y: screenFrame.minY))
+        } else {
+            window.setFrameOrigin(screenFrame.origin)
+        }
     }
 
     override func viewDidLayout() {
