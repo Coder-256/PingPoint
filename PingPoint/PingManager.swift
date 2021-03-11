@@ -50,12 +50,12 @@ class PingManager {
                 if invalidated {
                     self.newConnection()
                 }
-                self.resumePing()
+                self.resume()
             }
         }
     }
 
-    func resumePing() {
+    func resume() {
         shouldRestart = true
         if connection == nil {
             newConnection()
@@ -66,7 +66,7 @@ class PingManager {
         helper.resumePing(base: base, args: args)
     }
 
-    func cancelPing() {
+    func suspend() {
         shouldRestart = false
         helper.cancelPing()
     }
@@ -103,7 +103,7 @@ func pingerTest() {
         print("app: ping result! \(r.number) \(r.success) \(r.ping)")
     }
 
-    pingManager.resumePing()
+    pingManager.resume()
 
     leak(pingManager)
 }

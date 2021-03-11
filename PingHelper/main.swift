@@ -11,12 +11,15 @@ class ServiceDelegate: NSObject, NSXPCListenerDelegate {
     func listener(_ listener: NSXPCListener, shouldAcceptNewConnection newConnection: NSXPCConnection) -> Bool {
         newConnection.exportedInterface = helperInterface
         newConnection.remoteObjectInterface = reverseInterface
-        newConnection.exportedObject = PingHelper(reverse: newConnection.remoteObjectProxy as! PingReverseProtocol)
-        newConnection.interruptionHandler = {
+        let helper = PingHelper(reverse: newConnection.remoteObjectProxy as! PingReverseProtocol)
+        newConnection.exportedObject = helper
+        newConnection.interruptionHandler = { [weak helper] in
             print("helper: connection interrupted")
+            helper?.stopProcess()
         }
-        newConnection.invalidationHandler = {
+        newConnection.invalidationHandler = { [weak helper] in
             print("helper: connection invalidated")
+            helper?.stopProcess()
         }
         newConnection.resume()
         return true
