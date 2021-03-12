@@ -685,7 +685,7 @@
         <scene sceneID="R2V-B0-nI4">
             <objects>
                 <windowController id="B8D-0N-5wS" sceneMemberID="viewController">
-                    <window key="window" title="Window" allowsToolTipsWhenApplicationIsInactive="NO" autorecalculatesKeyViewLoop="NO" releasedWhenClosed="NO" visibleAtLaunch="NO" animationBehavior="default" id="IQv-IB-iLA" customClass="NSPanel">
+                    <window key="window" title="Window" allowsToolTipsWhenApplicationIsInactive="NO" autorecalculatesKeyViewLoop="NO" hasShadow="NO" releasedWhenClosed="NO" visibleAtLaunch="NO" animationBehavior="default" id="IQv-IB-iLA" customClass="NSPanel">
                         <windowStyleMask key="styleMask" closable="YES" miniaturizable="YES" resizable="YES" nonactivatingPanel="YES"/>
                         <windowCollectionBehavior key="collectionBehavior" canJoinAllSpaces="YES" fullScreenAuxiliary="YES"/>
                         <windowPositionMask key="initialPositionMask" leftStrut="YES" rightStrut="YES" topStrut="YES" bottomStrut="YES"/>
@@ -703,45 +703,90 @@
             </objects>
             <point key="canvasLocation" x="75" y="250"/>
         </scene>
-        <!--Basic Ping View Controller-->
+        <!--View Controller-->
         <scene sceneID="GRL-jJ-xfY">
             <objects>
-                <viewController id="qIu-IK-Oao" customClass="BasicPingViewController" customModule="PingPoint" customModuleProvider="target" sceneMemberID="viewController">
-                    <view key="view" id="REP-jc-m4q">
-                        <rect key="frame" x="0.0" y="0.0" width="254" height="48"/>
+                <viewController id="qIu-IK-Oao" customClass="ViewController" customModule="PingPoint" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" id="REP-jc-m4q" userLabel="Outer View">
+                        <rect key="frame" x="0.0" y="0.0" width="350" height="48"/>
                         <autoresizingMask key="autoresizingMask"/>
                         <subviews>
-                            <customView translatesAutoresizingMaskIntoConstraints="NO" id="Rcx-I9-0B3">
-                                <rect key="frame" x="20" y="0.0" width="169" height="48"/>
+                            <customView translatesAutoresizingMaskIntoConstraints="NO" id="O0K-TR-dkP" userLabel="Inset View">
+                                <rect key="frame" x="20" y="0.0" width="265" height="48"/>
                                 <subviews>
-                                    <textField horizontalHuggingPriority="751" verticalHuggingPriority="750" horizontalCompressionResistancePriority="751" translatesAutoresizingMaskIntoConstraints="NO" id="yHE-Tm-TCa">
-                                        <rect key="frame" x="46" y="0.0" width="125" height="48"/>
-                                        <textFieldCell key="cell" lineBreakMode="clipping" alignment="right" title="12.34" id="D6W-MT-hof">
-                                            <font key="font" size="40" name="Courier-Bold"/>
-                                            <color key="textColor" name="labelColor" catalog="System" colorSpace="catalog"/>
-                                            <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
-                                        </textFieldCell>
-                                    </textField>
+                                    <button horizontalCompressionResistancePriority="250" verticalCompressionResistancePriority="250" translatesAutoresizingMaskIntoConstraints="NO" id="aBq-jf-cFY" userLabel="Left Button">
+                                        <rect key="frame" x="5" y="5" width="38" height="38"/>
+                                        <constraints>
+                                            <constraint firstAttribute="width" secondItem="aBq-jf-cFY" secondAttribute="height" multiplier="1:1" id="GJa-YI-c7Q"/>
+                                        </constraints>
+                                        <buttonCell key="cell" type="square" bezelStyle="shadowlessSquare" image="bomb" imagePosition="only" alignment="center" imageScaling="proportionallyUpOrDown" inset="2" id="1qh-uM-qwa">
+                                            <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
+                                            <font key="font" metaFont="system"/>
+                                        </buttonCell>
+                                        <connections>
+                                            <action selector="leftButtonPressed:" target="qIu-IK-Oao" id="5M7-NT-y89"/>
+                                        </connections>
+                                    </button>
+                                    <customView translatesAutoresizingMaskIntoConstraints="NO" id="Rcx-I9-0B3" userLabel="Label Wrapper">
+                                        <rect key="frame" x="48" y="0.0" width="169" height="48"/>
+                                        <subviews>
+                                            <textField horizontalHuggingPriority="751" verticalHuggingPriority="750" horizontalCompressionResistancePriority="751" translatesAutoresizingMaskIntoConstraints="NO" id="yHE-Tm-TCa">
+                                                <rect key="frame" x="46" y="0.0" width="125" height="48"/>
+                                                <textFieldCell key="cell" lineBreakMode="clipping" alignment="right" title="12.34" id="D6W-MT-hof">
+                                                    <font key="font" size="40" name="Courier-Bold"/>
+                                                    <color key="textColor" name="labelColor" catalog="System" colorSpace="catalog"/>
+                                                    <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
+                                                </textFieldCell>
+                                            </textField>
+                                        </subviews>
+                                        <constraints>
+                                            <constraint firstAttribute="bottom" secondItem="yHE-Tm-TCa" secondAttribute="bottom" id="4gq-jf-6ua"/>
+                                            <constraint firstItem="yHE-Tm-TCa" firstAttribute="leading" secondItem="Rcx-I9-0B3" secondAttribute="leading" priority="750" id="j9U-nG-qau"/>
+                                            <constraint firstItem="yHE-Tm-TCa" firstAttribute="top" secondItem="Rcx-I9-0B3" secondAttribute="top" id="lLB-s8-EPw"/>
+                                            <constraint firstItem="yHE-Tm-TCa" firstAttribute="leading" relation="greaterThanOrEqual" secondItem="Rcx-I9-0B3" secondAttribute="leading" id="pdm-zf-3bh"/>
+                                            <constraint firstAttribute="width" relation="greaterThanOrEqual" constant="169" id="q1P-oN-iW7"/>
+                                            <constraint firstAttribute="trailing" secondItem="yHE-Tm-TCa" secondAttribute="trailing" id="vRs-rK-ULv"/>
+                                        </constraints>
+                                    </customView>
+                                    <button horizontalCompressionResistancePriority="250" verticalCompressionResistancePriority="250" translatesAutoresizingMaskIntoConstraints="NO" id="X24-LU-NxY" userLabel="Right Button">
+                                        <rect key="frame" x="222" y="5" width="38" height="38"/>
+                                        <constraints>
+                                            <constraint firstAttribute="width" secondItem="X24-LU-NxY" secondAttribute="height" multiplier="1:1" id="Fzp-pB-Ep2"/>
+                                        </constraints>
+                                        <buttonCell key="cell" type="square" bezelStyle="shadowlessSquare" image="bomb" imagePosition="only" alignment="center" imageScaling="proportionallyUpOrDown" inset="2" id="hc8-C5-2fJ">
+                                            <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
+                                            <font key="font" metaFont="system"/>
+                                        </buttonCell>
+                                        <connections>
+                                            <action selector="rightButtonPressed:" target="qIu-IK-Oao" id="7hl-Eu-7OF"/>
+                                        </connections>
+                                    </button>
                                 </subviews>
                                 <constraints>
-                                    <constraint firstAttribute="bottom" secondItem="yHE-Tm-TCa" secondAttribute="bottom" id="4gq-jf-6ua"/>
-                                    <constraint firstItem="yHE-Tm-TCa" firstAttribute="leading" secondItem="Rcx-I9-0B3" secondAttribute="leading" priority="750" id="j9U-nG-qau"/>
-                                    <constraint firstItem="yHE-Tm-TCa" firstAttribute="top" secondItem="Rcx-I9-0B3" secondAttribute="top" id="lLB-s8-EPw"/>
-                                    <constraint firstItem="yHE-Tm-TCa" firstAttribute="leading" relation="greaterThanOrEqual" secondItem="Rcx-I9-0B3" secondAttribute="leading" id="pdm-zf-3bh"/>
-                                    <constraint firstAttribute="width" relation="greaterThanOrEqual" constant="169" id="q1P-oN-iW7"/>
-                                    <constraint firstAttribute="trailing" secondItem="yHE-Tm-TCa" secondAttribute="trailing" id="vRs-rK-ULv"/>
+                                    <constraint firstItem="aBq-jf-cFY" firstAttribute="top" secondItem="O0K-TR-dkP" secondAttribute="top" constant="5" id="0WV-uF-Lh3"/>
+                                    <constraint firstItem="Rcx-I9-0B3" firstAttribute="top" secondItem="O0K-TR-dkP" secondAttribute="top" id="2qk-7U-oep"/>
+                                    <constraint firstAttribute="bottom" secondItem="Rcx-I9-0B3" secondAttribute="bottom" id="3N6-aR-yVT"/>
+                                    <constraint firstAttribute="trailing" secondItem="X24-LU-NxY" secondAttribute="trailing" constant="5" id="5En-hL-wMz"/>
+                                    <constraint firstItem="X24-LU-NxY" firstAttribute="leading" secondItem="Rcx-I9-0B3" secondAttribute="trailing" constant="5" id="Asc-vq-Crh"/>
+                                    <constraint firstItem="Rcx-I9-0B3" firstAttribute="leading" secondItem="aBq-jf-cFY" secondAttribute="trailing" constant="5" id="Ih3-aE-Ecc"/>
+                                    <constraint firstItem="X24-LU-NxY" firstAttribute="top" secondItem="O0K-TR-dkP" secondAttribute="top" constant="5" id="WJo-en-yic"/>
+                                    <constraint firstAttribute="bottom" secondItem="X24-LU-NxY" secondAttribute="bottom" constant="5" id="YW4-5M-bTD"/>
+                                    <constraint firstItem="aBq-jf-cFY" firstAttribute="leading" secondItem="O0K-TR-dkP" secondAttribute="leading" constant="5" id="aOr-gg-Ycm"/>
+                                    <constraint firstAttribute="bottom" secondItem="aBq-jf-cFY" secondAttribute="bottom" constant="5" id="jHQ-Rz-zRN"/>
                                 </constraints>
                             </customView>
                         </subviews>
                         <constraints>
-                            <constraint firstAttribute="trailing" secondItem="Rcx-I9-0B3" secondAttribute="trailing" constant="65" id="6hb-mF-G1x"/>
-                            <constraint firstAttribute="bottom" secondItem="Rcx-I9-0B3" secondAttribute="bottom" id="jGK-Z6-ezF"/>
-                            <constraint firstItem="Rcx-I9-0B3" firstAttribute="top" secondItem="REP-jc-m4q" secondAttribute="top" id="jMi-up-ugX"/>
-                            <constraint firstItem="Rcx-I9-0B3" firstAttribute="leading" secondItem="REP-jc-m4q" secondAttribute="leading" constant="20" id="lIE-Ob-040"/>
+                            <constraint firstAttribute="trailing" secondItem="O0K-TR-dkP" secondAttribute="trailing" constant="65" id="6E5-kz-w4e"/>
+                            <constraint firstItem="O0K-TR-dkP" firstAttribute="leading" secondItem="REP-jc-m4q" secondAttribute="leading" constant="20" id="Iev-eu-sCc"/>
+                            <constraint firstItem="O0K-TR-dkP" firstAttribute="top" secondItem="REP-jc-m4q" secondAttribute="top" id="Nge-Hh-nQL"/>
+                            <constraint firstAttribute="bottom" secondItem="O0K-TR-dkP" secondAttribute="bottom" id="zPQ-rt-FPw"/>
                         </constraints>
                     </view>
                     <connections>
                         <outlet property="label" destination="yHE-Tm-TCa" id="j6S-xO-eXt"/>
+                        <outlet property="leftButton" destination="aBq-jf-cFY" id="GA4-4k-prL"/>
+                        <outlet property="rightButton" destination="X24-LU-NxY" id="29p-hL-ol7"/>
                     </connections>
                 </viewController>
                 <customObject id="7r8-q3-OKl" userLabel="First Responder" customClass="NSResponder" sceneMemberID="firstResponder"/>
@@ -749,4 +794,7 @@
             <point key="canvasLocation" x="75" y="566"/>
         </scene>
     </scenes>
+    <resources>
+        <image name="bomb" width="512" height="512"/>
+    </resources>
 </document>

@@ -6,12 +6,18 @@
 //
 
 import Cocoa
+import Combine
 
 @main
 class AppDelegate: NSObject, NSApplicationDelegate {
+    class var shared: AppDelegate { NSApplication.shared.delegate as! AppDelegate }
+    var pingManager: PingManager!
+    var pingSubject = PassthroughSubject<PingResult, Never>()
+
     func applicationDidFinishLaunching(_ aNotification: Notification) {
         // Insert code here to initialize your application
-        // pingerTest()
+        pingManager = PingManager(args: ["1.1.1.1"]) { [unowned self] in pingSubject.send($0) }
+        pingManager.resume()
     }
 
     func applicationWillTerminate(_ aNotification: Notification) {

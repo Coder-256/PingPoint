@@ -11,6 +11,7 @@ import Foundation
     func keepAlive(canceled: @escaping () -> Void)
     func resumePing(base: Int, args: [String])
     func cancelPing()
+    func nuke()
 }
 
 @objc protocol PingReverseProtocol {

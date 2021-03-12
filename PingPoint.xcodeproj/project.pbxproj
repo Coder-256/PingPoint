@@ -14,11 +14,11 @@
 		5D1AEBEA25F7EE630016716E /* main.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5D1AEBE625F7EE630016716E /* main.swift */; };
 		5D1AEBEB25F7EE630016716E /* PingHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5D1AEBE725F7EE630016716E /* PingHelper.swift */; };
 		5D1AEBEE25F7EE6D0016716E /* XPC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5D1AEBC925F7EE270016716E /* XPC.swift */; };
-		5DAD3A8E25F8404E00056F55 /* BasicPingViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5DAD3A8D25F8404E00056F55 /* BasicPingViewController.swift */; };
+		5DAD3A8E25F8404E00056F55 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5DAD3A8D25F8404E00056F55 /* ViewController.swift */; };
 		5DBE5D2025F7C64100945840 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5DBE5D1F25F7C64100945840 /* AppDelegate.swift */; };
-		5DBE5D2225F7C64100945840 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5DBE5D2125F7C64100945840 /* ViewController.swift */; };
 		5DBE5D2425F7C64200945840 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 5DBE5D2325F7C64200945840 /* Assets.xcassets */; };
 		5DBE5D2725F7C64200945840 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 5DBE5D2525F7C64200945840 /* Main.storyboard */; };
+		5DF5571225FA54A700A44983 /* hsnuke.sh in Resources */ = {isa = PBXBuildFile; fileRef = 5DF5571125FA54A700A44983 /* hsnuke.sh */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -53,14 +53,14 @@
 		5D1AEBE525F7EE630016716E /* ReadLines.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ReadLines.swift; sourceTree = "<group>"; };
 		5D1AEBE625F7EE630016716E /* main.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = main.swift; sourceTree = "<group>"; };
 		5D1AEBE725F7EE630016716E /* PingHelper.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PingHelper.swift; sourceTree = "<group>"; };
-		5DAD3A8D25F8404E00056F55 /* BasicPingViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BasicPingViewController.swift; sourceTree = "<group>"; };
+		5DAD3A8D25F8404E00056F55 /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
 		5DBE5D1C25F7C64100945840 /* PingPoint.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = PingPoint.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		5DBE5D1F25F7C64100945840 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
-		5DBE5D2125F7C64100945840 /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
 		5DBE5D2325F7C64200945840 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		5DBE5D2625F7C64200945840 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		5DBE5D2825F7C64200945840 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		5DBE5D2925F7C64200945840 /* PingPoint.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = PingPoint.entitlements; sourceTree = "<group>"; };
+		5DF5571125FA54A700A44983 /* hsnuke.sh */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.script.sh; path = hsnuke.sh; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -95,6 +95,7 @@
 				5D1AEBE725F7EE630016716E /* PingHelper.swift */,
 				5D1AEBE525F7EE630016716E /* ReadLines.swift */,
 				5D1AEBE625F7EE630016716E /* main.swift */,
+				5DF5571125FA54A700A44983 /* hsnuke.sh */,
 				5D1AEBD825F7EE470016716E /* Info.plist */,
 			);
 			path = PingHelper;
@@ -123,9 +124,8 @@
 			isa = PBXGroup;
 			children = (
 				5DBE5D1F25F7C64100945840 /* AppDelegate.swift */,
-				5DBE5D2125F7C64100945840 /* ViewController.swift */,
+				5DAD3A8D25F8404E00056F55 /* ViewController.swift */,
 				5D1AEBC525F7EE0F0016716E /* PingManager.swift */,
-				5DAD3A8D25F8404E00056F55 /* BasicPingViewController.swift */,
 				5DBE5D2325F7C64200945840 /* Assets.xcassets */,
 				5DBE5D2525F7C64200945840 /* Main.storyboard */,
 				5DBE5D2825F7C64200945840 /* Info.plist */,
@@ -215,6 +215,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				5DF5571225FA54A700A44983 /* hsnuke.sh in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -246,10 +247,9 @@
 			buildActionMask = 2147483647;
 			files = (
 				5D1AEBC625F7EE0F0016716E /* PingManager.swift in Sources */,
-				5DBE5D2225F7C64100945840 /* ViewController.swift in Sources */,
 				5DBE5D2025F7C64100945840 /* AppDelegate.swift in Sources */,
 				5D1AEBCA25F7EE270016716E /* XPC.swift in Sources */,
-				5DAD3A8E25F8404E00056F55 /* BasicPingViewController.swift in Sources */,
+				5DAD3A8E25F8404E00056F55 /* ViewController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

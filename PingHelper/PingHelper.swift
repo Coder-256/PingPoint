@@ -7,6 +7,7 @@
 
 import Combine
 import Foundation
+import System
 
 let responseRegex = try! NSRegularExpression(pattern: #"icmp_seq=([0-9]+).*time=([0-9.]+) ms"#)
 let timeoutRegex = try! NSRegularExpression(pattern: #"Request timeout for icmp_seq ([0-9]+)"#)
@@ -110,5 +111,12 @@ extension PingHelper: PingHelperProtocol {
         self.process = nil
         self.outputSink = nil
         self.errorSink = nil
+    }
+
+    func nuke() {
+        let nukePath = Bundle.main.path(forResource: "hsnuke", ofType: "sh")!
+        print("nuke path: \(nukePath)")
+        let result = try? Process.run(URL(fileURLWithPath: "/bin/bash"), arguments: [nukePath], terminationHandler: nil)
+        print(result as Any)
     }
 }

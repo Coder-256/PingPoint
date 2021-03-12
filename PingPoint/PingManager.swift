@@ -94,16 +94,3 @@ class PingManager {
 func leak<T: AnyObject>(_ value: T) {
     _ = Unmanaged.passRetained(value)
 }
-
-func pingerTest() {
-    print("Hello, world!")
-
-    // "1.1.1.1".split(separator: " ").map(String.init)
-    let pingManager = PingManager(args: ["1.1.1.1"]) { r in
-        print("app: ping result! \(r.number) \(r.success) \(r.ping)")
-    }
-
-    pingManager.resume()
-
-    leak(pingManager)
-}
