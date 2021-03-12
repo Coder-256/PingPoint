@@ -110,7 +110,7 @@ class ViewController: NSViewController {
             pingSubscription = AppDelegate.shared.pingSubject.sink { [unowned self] r in
                 DispatchQueue.main.async {
                     if r.success {
-                        let g = gradient(value: CGFloat(r.ping), low: 500, high: 1500)
+                        let g = gradient(value: CGFloat(r.ping), low: 200, high: 1000)
                         let color = NSColor.labelColor.blended(withFraction: g, of: .red)
                         setText(String(format: "%.2f", r.ping), color: color)
                     } else {
