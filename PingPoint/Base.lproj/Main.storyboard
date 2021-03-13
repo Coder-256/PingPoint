@@ -795,6 +795,6 @@
         </scene>
     </scenes>
     <resources>
-        <image name="bomb" width="512" height="512"/>
+        <image name="bomb" width="128" height="128"/>
     </resources>
 </document>

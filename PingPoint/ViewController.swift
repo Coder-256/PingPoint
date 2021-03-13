@@ -48,7 +48,7 @@ class ViewController: NSViewController {
 
     func setText(_ string: String, color: NSColor? = nil) {
         var attributes: [NSAttributedString.Key: Any] = [
-            .strokeColor: NSColor.textBackgroundColor,
+            .strokeColor: NSColor.white,
             .strokeWidth: -3,
         ]
         if let color = color {
@@ -83,6 +83,7 @@ class ViewController: NSViewController {
         window.isFloatingPanel = true
         window.isOpaque = false
         window.backgroundColor = .clear
+        setText("--")
 
         if isChild {
             label.isHidden = true
@@ -106,12 +107,11 @@ class ViewController: NSViewController {
                 window.addChildWindow(childController!.window!, ordered: .above)
             }
 
-            setText("--")
             pingSubscription = AppDelegate.shared.pingSubject.sink { [unowned self] r in
                 DispatchQueue.main.async {
                     if r.success {
                         let g = gradient(value: CGFloat(r.ping), low: 200, high: 1000)
-                        let color = NSColor.labelColor.blended(withFraction: g, of: .red)
+                        let color = NSColor.black.blended(withFraction: g, of: .red)
                         setText(String(format: "%.2f", r.ping), color: color)
                     } else {
                         setText("FAIL!", color: .red)
