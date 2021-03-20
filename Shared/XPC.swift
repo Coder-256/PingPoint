@@ -9,7 +9,8 @@ import Foundation
 
 @objc protocol PingHelperProtocol {
     func keepAlive(canceled: @escaping () -> Void)
-    func resumePing(base: Int, args: [String])
+    func update(base: Int, args: [String])
+    func resumePing()
     func cancelPing()
     func nuke()
 }

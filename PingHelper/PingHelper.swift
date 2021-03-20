@@ -16,13 +16,27 @@ class PingHelper {
     var keepAliveCallback: (() -> Void)? = nil
     var reverse: PingReverseProtocol
     var args: [String]? = nil
-    var newBase = 0
+    var base = 0
+    var nextBase = 0
     var process: Process? = nil
     var outputSink: AnyCancellable? = nil
     var errorSink: AnyCancellable? = nil
+    var lastResult = Date()
+    var timeout: TimeInterval = 10.0
 
     init(reverse: PingReverseProtocol) {
         self.reverse = reverse
+    }
+
+    func resetTimeout() {
+        lastResult = Date()
+        DispatchQueue.main.asyncAfter(deadline: .now() + timeout + 0.1) { [weak self] in
+            guard let self = self, let process = self.process else { return }
+            if process.isRunning && Date().timeIntervalSince(self.lastResult) > self.timeout {
+                print("timeout exceeded; will stop process")
+                self.stopProcess()
+            }
+        }
     }
 
     deinit {
@@ -39,9 +53,13 @@ extension PingHelper: PingHelperProtocol {
         keepAliveCallback = canceled
     }
 
-    func resumePing(base: Int, args: [String]) {
+    func update(base: Int, args: [String]) {
+        self.base = base
+        self.nextBase = base
         self.args = args
-        self.newBase = base + 1
+    }
+
+    func resumePing() {
         stopProcess()
         print("start pinging")
         let pingURL = URL(fileURLWithPath: "/sbin/ping")
@@ -58,12 +76,13 @@ extension PingHelper: PingHelperProtocol {
             DispatchQueue.main.asyncAfter(deadline: .now() + .seconds(1)) { [weak self] in
                 guard let self = self else { return }
                 print("relaunch after process exit")
-                self.resumePing(base: self.newBase, args: self.args!)
+                self.base = self.nextBase
+                self.resumePing()
             }
         }
-        // TODO: Handle crash and restart command (after short delay)
+
         let outputSubject = PassthroughSubject<String?, Never>()
-        self.outputSink = outputSubject.sink { [unowned self] line in
+        outputSink = outputSubject.sink { [unowned self] line in
             guard let line = line else { print("STDOUT: DECODE FAILED"); return }
             print("line: \(line) --> ", terminator: "")
             let range = NSRange(location: 0, length: line.utf16.count)
@@ -74,15 +93,17 @@ extension PingHelper: PingHelperProtocol {
                 let pingMs = Double((line as NSString).substring(with: matched.range(at: 2)))
             {
                 print("ping seq: \(seq), ms: \(pingMs)")
-                newBase = max(newBase, seq + 1)
-                self.reverse.gotPing(number: base + seq, ping: pingMs, success: true)
+                resetTimeout()
+                nextBase = max(nextBase, base + seq + 1)
+                reverse.gotPing(number: base + seq, ping: pingMs, success: true)
             } else if
                 let matched = timeoutRegex.firstMatch(in: line, range: range),
                 let seq = Int((line as NSString).substring(with: matched.range(at: 1)))
             {
                 print("timed out! seq: \(seq)")
-                newBase = max(newBase, seq + 1)
-                self.reverse.gotPing(number: base + seq, ping: 0, success: false)
+                resetTimeout()
+                nextBase = max(nextBase, base + seq + 1)
+                reverse.gotPing(number: base + seq, ping: 0, success: false)
             } else {
                 print("unknown")
             }
@@ -90,11 +111,12 @@ extension PingHelper: PingHelperProtocol {
         readLines(handle: stdout.fileHandleForReading, subject: outputSubject)
 
         let errorSubject = PassthroughSubject<String?, Never>()
-        self.errorSink = errorSubject.sink { line in
+        errorSink = errorSubject.sink { line in
             print("STDERR: \(line ?? "DECODE FAILED")")
         }
         readLines(handle: stderr.fileHandleForReading, subject: errorSubject)
-        
+
+        resetTimeout()
         process.launch()
     }
 
@@ -102,15 +124,17 @@ extension PingHelper: PingHelperProtocol {
     func cancelPing() {
         print("helper: will cancel ping")
         stopProcess()
-        self.keepAliveCallback?()
-        self.keepAliveCallback = nil
+        keepAliveCallback?()
+        keepAliveCallback = nil
     }
 
     func stopProcess() {
-        self.process?.interrupt()
-        self.process = nil
-        self.outputSink = nil
-        self.errorSink = nil
+        // `process?.interrupt()` would send SIGINT
+        // Send SIGKILL instead
+        if let pid = process?.processIdentifier { kill(pid, SIGKILL) }
+        process = nil
+        outputSink = nil
+        errorSink = nil
     }
 
     func nuke() {

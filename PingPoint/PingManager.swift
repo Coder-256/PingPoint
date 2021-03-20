@@ -13,7 +13,7 @@ class PingManager {
     var callback: (PingResult) -> Void
     var connection: NSXPCConnection!
     var helper: PingHelperProtocol!
-    var base = 0
+    var nextBase = 0
     var shouldRestart = true
 
     init(args: [String], callback: @escaping (PingResult) -> Void) {
@@ -63,7 +63,8 @@ class PingManager {
         helper.keepAlive {
             print("app: keep alive cancelled callback")
         }
-        helper.resumePing(base: base, args: args)
+        helper.update(base: nextBase, args: args)
+        helper.resumePing()
     }
 
     func suspend() {
@@ -85,7 +86,7 @@ class PingManager {
         func gotPing(number: Int, ping: Double, success: Bool) {
             guard let parent = parent else { return }
             let result = PingResult(number: number, ping: ping, success: success)
-            parent.base = max(parent.base, result.number + 1)
+            parent.nextBase = result.number + 1
             parent.callback(result)
         }
     }
