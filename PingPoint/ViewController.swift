@@ -131,14 +131,15 @@ class ViewController: NSViewController {
                 window.addChildWindow(childController!.window!, ordered: .above)
             }
 
-            pingSubscription = AppDelegate.shared.pingSubject.sink { [unowned self] r in
-                DispatchQueue.main.async {
+            pingSubscription = AppDelegate.shared.pingSubject.sink { [weak self] r in
+                DispatchQueue.main.async { [weak self] in
+                    guard let self = self else { return }
                     if r.success {
-                        let g = gradient(value: CGFloat(r.ping), low: 200, high: 1000)
+                        let g = self.gradient(value: CGFloat(r.ping), low: 200, high: 1000)
                         let color = NSColor.black.blended(withFraction: g, of: .red)!
-                        setText(String(format: "%.2f", r.ping), color: color)
+                        self.setText(String(format: "%.2f", r.ping), color: color)
                     } else {
-                        setText("FAIL!", color: .red)
+                        self.setText("FAIL!", color: .red)
                     }
                 }
             }
