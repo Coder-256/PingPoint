@@ -23,7 +23,11 @@
                                             </connections>
                                         </menuItem>
                                         <menuItem isSeparatorItem="YES" id="VOq-y0-SEH"/>
-                                        <menuItem title="Preferences…" keyEquivalent="," id="BOF-NM-1cW"/>
+                                        <menuItem title="Preferences…" keyEquivalent="," id="BOF-NM-1cW">
+                                            <connections>
+                                                <segue destination="yF3-wq-vna" kind="show" id="idy-bV-hDA"/>
+                                            </connections>
+                                        </menuItem>
                                         <menuItem isSeparatorItem="YES" id="wFC-TO-SCJ"/>
                                         <menuItem title="Services" id="NMo-om-nkz">
                                             <modifierMask key="keyEquivalentModifierMask"/>
@@ -679,17 +683,17 @@
                 <customObject id="YLy-65-1bz" customClass="NSFontManager"/>
                 <customObject id="Ady-hI-5gd" userLabel="First Responder" customClass="NSResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="75" y="0.0"/>
+            <point key="canvasLocation" x="76" y="-65"/>
         </scene>
         <!--Window Controller-->
         <scene sceneID="R2V-B0-nI4">
             <objects>
-                <windowController id="B8D-0N-5wS" sceneMemberID="viewController">
-                    <window key="window" title="Window" allowsToolTipsWhenApplicationIsInactive="NO" autorecalculatesKeyViewLoop="NO" hasShadow="NO" releasedWhenClosed="NO" visibleAtLaunch="NO" animationBehavior="default" id="IQv-IB-iLA" customClass="NSPanel">
-                        <windowStyleMask key="styleMask" closable="YES" miniaturizable="YES" resizable="YES" nonactivatingPanel="YES"/>
+                <windowController showSeguePresentationStyle="single" id="B8D-0N-5wS" sceneMemberID="viewController">
+                    <window key="window" title="PingPoint" allowsToolTipsWhenApplicationIsInactive="NO" autorecalculatesKeyViewLoop="NO" hasShadow="NO" releasedWhenClosed="NO" visibleAtLaunch="NO" frameAutosaveName="" animationBehavior="default" id="IQv-IB-iLA" customClass="NSPanel">
+                        <windowStyleMask key="styleMask" nonactivatingPanel="YES"/>
                         <windowCollectionBehavior key="collectionBehavior" canJoinAllSpaces="YES" fullScreenAuxiliary="YES"/>
                         <windowPositionMask key="initialPositionMask" leftStrut="YES" rightStrut="YES" topStrut="YES" bottomStrut="YES"/>
-                        <rect key="contentRect" x="196" y="240" width="480" height="270"/>
+                        <rect key="contentRect" x="196" y="239" width="480" height="270"/>
                         <rect key="screenRect" x="0.0" y="0.0" width="1680" height="1027"/>
                         <connections>
                             <outlet property="delegate" destination="B8D-0N-5wS" id="98r-iN-zZc"/>
@@ -703,12 +707,92 @@
             </objects>
             <point key="canvasLocation" x="75" y="250"/>
         </scene>
+        <!--Window Controller-->
+        <scene sceneID="yBA-c4-W8O">
+            <objects>
+                <windowController showSeguePresentationStyle="single" id="yF3-wq-vna" sceneMemberID="viewController">
+                    <window key="window" title="Preferences" allowsToolTipsWhenApplicationIsInactive="NO" autorecalculatesKeyViewLoop="NO" releasedWhenClosed="NO" visibleAtLaunch="NO" frameAutosaveName="" animationBehavior="default" id="R51-TZ-c1I">
+                        <windowStyleMask key="styleMask" titled="YES" closable="YES"/>
+                        <windowPositionMask key="initialPositionMask" leftStrut="YES" rightStrut="YES" topStrut="YES" bottomStrut="YES"/>
+                        <rect key="contentRect" x="196" y="239" width="480" height="270"/>
+                        <rect key="screenRect" x="0.0" y="0.0" width="1440" height="875"/>
+                        <view key="contentView" id="6MR-is-7re">
+                            <rect key="frame" x="0.0" y="0.0" width="480" height="270"/>
+                            <autoresizingMask key="autoresizingMask"/>
+                        </view>
+                        <connections>
+                            <outlet property="delegate" destination="yF3-wq-vna" id="NZ1-ah-agA"/>
+                        </connections>
+                    </window>
+                    <connections>
+                        <segue destination="oXU-Wp-4Ml" kind="relationship" relationship="window.shadowedContentViewController" id="8KC-z6-Vko"/>
+                    </connections>
+                </windowController>
+                <customObject id="6dV-wn-sWB" userLabel="First Responder" customClass="NSResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="699" y="252"/>
+        </scene>
+        <!--View Controller-->
+        <scene sceneID="ePF-wj-9Ve">
+            <objects>
+                <viewController id="oXU-Wp-4Ml" sceneMemberID="viewController">
+                    <view key="view" id="SkV-Ud-ogX">
+                        <rect key="frame" x="0.0" y="0.0" width="480" height="80"/>
+                        <autoresizingMask key="autoresizingMask"/>
+                        <subviews>
+                            <stackView distribution="fill" orientation="vertical" alignment="leading" horizontalStackHuggingPriority="249.99998474121094" verticalStackHuggingPriority="249.99998474121094" detachesHiddenViews="YES" translatesAutoresizingMaskIntoConstraints="NO" id="kaD-UB-yzo">
+                                <rect key="frame" x="20" y="20" width="440" height="40"/>
+                                <subviews>
+                                    <button verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="9zr-UI-p2Q">
+                                        <rect key="frame" x="-2" y="23" width="110" height="18"/>
+                                        <buttonCell key="cell" type="check" title="Show title bar" bezelStyle="regularSquare" imagePosition="left" state="on" inset="2" id="aHe-Tz-dLq">
+                                            <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
+                                            <font key="font" metaFont="system"/>
+                                        </buttonCell>
+                                        <connections>
+                                            <binding destination="du1-sh-ACj" name="value" keyPath="values.showTitleBar" id="khl-41-0RB"/>
+                                        </connections>
+                                    </button>
+                                    <button verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="6A4-3w-lgw">
+                                        <rect key="frame" x="-2" y="-1" width="168" height="18"/>
+                                        <buttonCell key="cell" type="check" title="Place bomb to the right" bezelStyle="regularSquare" imagePosition="left" state="on" inset="2" id="o95-9d-5A9">
+                                            <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
+                                            <font key="font" metaFont="system"/>
+                                        </buttonCell>
+                                        <connections>
+                                            <binding destination="du1-sh-ACj" name="value" keyPath="values.bombRight" id="lXi-aB-Dyq"/>
+                                        </connections>
+                                    </button>
+                                </subviews>
+                                <visibilityPriorities>
+                                    <integer value="1000"/>
+                                    <integer value="1000"/>
+                                </visibilityPriorities>
+                                <customSpacing>
+                                    <real value="3.4028234663852886e+38"/>
+                                    <real value="3.4028234663852886e+38"/>
+                                </customSpacing>
+                            </stackView>
+                        </subviews>
+                        <constraints>
+                            <constraint firstItem="kaD-UB-yzo" firstAttribute="top" secondItem="SkV-Ud-ogX" secondAttribute="top" constant="20" symbolic="YES" id="I2l-IV-UZf"/>
+                            <constraint firstAttribute="trailing" secondItem="kaD-UB-yzo" secondAttribute="trailing" constant="20" symbolic="YES" id="k3Z-0F-5dK"/>
+                            <constraint firstAttribute="bottom" secondItem="kaD-UB-yzo" secondAttribute="bottom" constant="20" symbolic="YES" id="o1b-V1-M8v"/>
+                            <constraint firstItem="kaD-UB-yzo" firstAttribute="leading" secondItem="SkV-Ud-ogX" secondAttribute="leading" constant="20" symbolic="YES" id="zLm-ci-ez1"/>
+                        </constraints>
+                    </view>
+                </viewController>
+                <customObject id="nMC-ov-yNL" userLabel="First Responder" customClass="NSResponder" sceneMemberID="firstResponder"/>
+                <userDefaultsController representsSharedInstance="YES" id="du1-sh-ACj"/>
+            </objects>
+            <point key="canvasLocation" x="699" y="669"/>
+        </scene>
         <!--View Controller-->
         <scene sceneID="GRL-jJ-xfY">
             <objects>
                 <viewController id="qIu-IK-Oao" customClass="ViewController" customModule="PingPoint" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" id="REP-jc-m4q" userLabel="Outer View">
-                        <rect key="frame" x="0.0" y="0.0" width="350" height="48"/>
+                        <rect key="frame" x="0.0" y="0.0" width="305" height="48"/>
                         <autoresizingMask key="autoresizingMask"/>
                         <subviews>
                             <customView translatesAutoresizingMaskIntoConstraints="NO" id="O0K-TR-dkP" userLabel="Inset View">
@@ -777,8 +861,8 @@
                             </customView>
                         </subviews>
                         <constraints>
-                            <constraint firstAttribute="trailing" secondItem="O0K-TR-dkP" secondAttribute="trailing" constant="65" id="6E5-kz-w4e"/>
-                            <constraint firstItem="O0K-TR-dkP" firstAttribute="leading" secondItem="REP-jc-m4q" secondAttribute="leading" constant="20" id="Iev-eu-sCc"/>
+                            <constraint firstAttribute="trailing" secondItem="O0K-TR-dkP" secondAttribute="trailing" constant="20" symbolic="YES" id="6E5-kz-w4e"/>
+                            <constraint firstItem="O0K-TR-dkP" firstAttribute="leading" secondItem="REP-jc-m4q" secondAttribute="leading" constant="20" symbolic="YES" id="Iev-eu-sCc"/>
                             <constraint firstItem="O0K-TR-dkP" firstAttribute="top" secondItem="REP-jc-m4q" secondAttribute="top" id="Nge-Hh-nQL"/>
                             <constraint firstAttribute="bottom" secondItem="O0K-TR-dkP" secondAttribute="bottom" id="zPQ-rt-FPw"/>
                         </constraints>

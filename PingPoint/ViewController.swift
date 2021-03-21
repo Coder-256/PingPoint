@@ -14,13 +14,14 @@ class ViewController: NSViewController {
     @IBOutlet weak var label: NSTextField!
 
     var pingSubscription: AnyCancellable?
-    var spaceObserver: NSObjectProtocol? = nil
     var window: NSPanel! { view.window as? NSPanel }
     var placeRight: Bool = true
     var isChild: Bool = false
-    var childController: ViewController? = nil
+    var childController: ViewController?
     var activeButton: NSButton?
     var alert: NSAlert?
+    var showTitleBarObserver: DefaultsObserver?
+    var bombOnRightObserver: DefaultsObserver?
 
     @IBAction func leftButtonPressed(_ sender: Any) {
         buttonPressed()
@@ -62,14 +63,12 @@ class ViewController: NSViewController {
     func placeWindow() {
         let screenFrame = view.window!.screen!.frame
         if placeRight {
-            window.setFrameOrigin(NSPoint(x: screenFrame.maxX - view.frame.width, y: screenFrame.minY))
+            window.setFrameOrigin(
+                NSPoint(x: screenFrame.maxX - view.frame.width, y: screenFrame.minY)
+            )
         } else {
             window.setFrameOrigin(screenFrame.origin)
         }
-    }
-
-    override func viewDidLayout() {
-        placeWindow()
     }
 
     func gradient(value: CGFloat, low: CGFloat, high: CGFloat) -> CGFloat {
@@ -86,6 +85,7 @@ class ViewController: NSViewController {
         setText("--")
 
         if isChild {
+            window.setFrameOrigin(window.parent!.frame.origin)
             label.isHidden = true
             if placeRight {
                 leftButton.isHidden = true
@@ -94,7 +94,27 @@ class ViewController: NSViewController {
                 rightButton.isHidden = true
                 activeButton = leftButton
             }
+
+            bombOnRightObserver = DefaultsObserver(
+                keyPath: "bombRight",
+                options: [.initial, .new]
+            ) { [weak self] change in
+                guard let self = self else { return }
+                let bombOnRight = change![.newKey] as! Bool
+                self.placeRight = bombOnRight
+                if self.placeRight {
+                    self.leftButton.isHidden = true
+                    self.rightButton.isHidden = false
+                    self.activeButton = self.rightButton
+                } else {
+                    self.rightButton.isHidden = true
+                    self.leftButton.isHidden = false
+                    self.activeButton = self.leftButton
+                }
+            }
         } else {
+            window.windowController!.shouldCascadeWindows = false
+            window.windowController!.windowFrameAutosaveName = "mainWindow"
             window.ignoresMouseEvents = true
             leftButton.isHidden = true
             rightButton.isHidden = true
@@ -119,17 +139,21 @@ class ViewController: NSViewController {
                 }
             }
 
-            spaceObserver = NSWorkspace.shared.notificationCenter.addObserver(
-                forName: NSWorkspace.activeSpaceDidChangeNotification,
-                object: nil,
-                queue: .main
-            ) { [weak self] _ in
-                self?.placeWindow()
+            showTitleBarObserver = DefaultsObserver(
+                keyPath: "showTitleBar",
+                options: [.initial, .new]
+            ) { [weak self] change in
+                guard let self = self else { return }
+                let showTitleBar = change![.newKey] as! Bool
+                if showTitleBar {
+                    self.window.styleMask.insert(.titled)
+                    self.window.ignoresMouseEvents = false
+                } else {
+                    self.window.styleMask.remove(.titled)
+                    self.window.ignoresMouseEvents = true
+                }
+
             }
         }
-    }
-
-    override func viewWillDisappear() {
-        NSWorkspace.shared.notificationCenter.removeObserver(spaceObserver as Any)
     }
 }
