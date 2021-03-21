@@ -27,4 +27,3 @@ class AppDelegate: NSObject, NSApplicationDelegate {
         pingManager.resume()
     }
 }
-

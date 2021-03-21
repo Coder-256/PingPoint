@@ -53,14 +53,12 @@ class ViewController: NSViewController {
         }
     }
 
-    func setText(_ string: String, color: NSColor? = nil) {
-        var attributes: [NSAttributedString.Key: Any] = [
+    func setText(_ string: String, color: NSColor = .black) {
+        let attributes: [NSAttributedString.Key: Any] = [
             .strokeColor: NSColor.white,
             .strokeWidth: -3,
+            .foregroundColor: color,
         ]
-        if let color = color {
-            attributes[.foregroundColor] = color
-        }
         let attributed = NSAttributedString(string: string, attributes: attributes)
         label.attributedStringValue = attributed
         childController?.label.attributedStringValue = attributed
@@ -88,7 +86,6 @@ class ViewController: NSViewController {
         window.isFloatingPanel = true
         window.isOpaque = false
         window.backgroundColor = .clear
-        setText("--")
 
         if isChild {
             window.setFrameOrigin(window.parent!.frame.origin)
@@ -119,6 +116,7 @@ class ViewController: NSViewController {
                 }
             }
         } else {
+            setText("--")
             window.windowController!.shouldCascadeWindows = false
             window.windowController!.windowFrameAutosaveName = "mainWindow"
             window.ignoresMouseEvents = true
@@ -137,7 +135,7 @@ class ViewController: NSViewController {
                 DispatchQueue.main.async {
                     if r.success {
                         let g = gradient(value: CGFloat(r.ping), low: 200, high: 1000)
-                        let color = NSColor.black.blended(withFraction: g, of: .red)
+                        let color = NSColor.black.blended(withFraction: g, of: .red)!
                         setText(String(format: "%.2f", r.ping), color: color)
                     } else {
                         setText("FAIL!", color: .red)
