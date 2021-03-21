@@ -117,7 +117,10 @@ extension PingHelper: PingHelperProtocol {
         readLines(handle: stderr.fileHandleForReading, subject: errorSubject)
 
         resetTimeout()
-        process.launch()
+
+        // It seems like errors thrown here are for issues like an invalid executable, rather than
+        // e.g. the exit status
+        try! process.run()
     }
 
     /// Stops the ping process and cancels the keepAlive() call
@@ -129,7 +132,7 @@ extension PingHelper: PingHelperProtocol {
     }
 
     func stopProcess() {
-        // `process?.interrupt()` would send SIGINT
+        // `Process.interrupt()` sends SIGINT, `Process.terminate()` sends SIGTERM
         // Send SIGKILL instead
         if let pid = process?.processIdentifier { kill(pid, SIGKILL) }
         process = nil
@@ -137,10 +140,12 @@ extension PingHelper: PingHelperProtocol {
         errorSink = nil
     }
 
-    func nuke() {
+    func nuke(reply: @escaping (NSNumber) -> Void) {
         let nukePath = Bundle.main.path(forResource: "hsnuke", ofType: "sh")!
         print("nuke path: \(nukePath)")
-        let result = try? Process.run(URL(fileURLWithPath: "/bin/bash"), arguments: [nukePath], terminationHandler: nil)
-        print(result as Any)
+
+        try! Process.run(URL(fileURLWithPath: "/bin/bash"), arguments: [nukePath]) { p in
+            reply(NSNumber(value: p.terminationStatus))
+        }
     }
 }

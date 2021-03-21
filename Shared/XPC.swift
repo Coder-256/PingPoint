@@ -12,7 +12,8 @@ import Foundation
     func update(base: Int, args: [String])
     func resumePing()
     func cancelPing()
-    func nuke()
+    /// Replies with an Int32 status (stored in a `NSNumber` for XPC)
+    func nuke(reply: @escaping (NSNumber) -> Void)
 }
 
 @objc protocol PingReverseProtocol {

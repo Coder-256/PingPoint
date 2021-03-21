@@ -42,7 +42,13 @@ class ViewController: NSViewController {
         alert.beginSheetModal(for: window) { response in
             print("sheet response:", response)
             if response == .alertFirstButtonReturn {
-                AppDelegate.shared.pingManager.helper.nuke()
+                AppDelegate.shared.pingManager.helper.nuke { status in
+                    if status == 0 {
+                        print("nuke successful")
+                    } else {
+                        print("nuke failed: \(status.int32Value)")
+                    }
+                }
             }
         }
     }
