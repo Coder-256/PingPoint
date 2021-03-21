@@ -71,9 +71,9 @@ extension PingHelper: PingHelperProtocol {
         process.arguments = args
         process.standardOutput = stdout
         process.standardError = stderr
-        process.terminationHandler = { p in
+        process.terminationHandler = { [weak self] p in
             print("process exited: \(p.terminationReason == .exit ? "exit" : "signal"): \(p.terminationStatus)")
-            DispatchQueue.main.asyncAfter(deadline: .now() + .seconds(1)) { [weak self] in
+            DispatchQueue.main.asyncAfter(deadline: .now() + .seconds(1)) {
                 guard let self = self else { return }
                 print("relaunch after process exit")
                 self.base = self.nextBase
