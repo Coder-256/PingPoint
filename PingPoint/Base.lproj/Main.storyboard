@@ -732,44 +732,76 @@
             </objects>
             <point key="canvasLocation" x="699" y="252"/>
         </scene>
-        <!--View Controller-->
+        <!--Preferences View Controller-->
         <scene sceneID="ePF-wj-9Ve">
             <objects>
-                <viewController id="oXU-Wp-4Ml" sceneMemberID="viewController">
+                <viewController id="oXU-Wp-4Ml" customClass="PreferencesViewController" customModule="PingPoint" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" id="SkV-Ud-ogX">
                         <rect key="frame" x="0.0" y="0.0" width="480" height="80"/>
                         <autoresizingMask key="autoresizingMask"/>
                         <subviews>
-                            <stackView distribution="fill" orientation="vertical" alignment="leading" horizontalStackHuggingPriority="249.99998474121094" verticalStackHuggingPriority="249.99998474121094" detachesHiddenViews="YES" translatesAutoresizingMaskIntoConstraints="NO" id="kaD-UB-yzo">
+                            <stackView distribution="fill" orientation="vertical" alignment="centerX" horizontalStackHuggingPriority="249.99998474121094" verticalStackHuggingPriority="249.99998474121094" detachesHiddenViews="YES" translatesAutoresizingMaskIntoConstraints="NO" id="kaD-UB-yzo">
                                 <rect key="frame" x="20" y="20" width="440" height="40"/>
                                 <subviews>
-                                    <button verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="9zr-UI-p2Q">
-                                        <rect key="frame" x="-2" y="23" width="110" height="18"/>
-                                        <buttonCell key="cell" type="check" title="Show title bar" bezelStyle="regularSquare" imagePosition="left" state="on" inset="2" id="aHe-Tz-dLq">
-                                            <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
-                                            <font key="font" metaFont="system"/>
-                                        </buttonCell>
-                                        <connections>
-                                            <binding destination="du1-sh-ACj" name="value" keyPath="values.showTitleBar" id="khl-41-0RB"/>
-                                        </connections>
-                                    </button>
-                                    <button verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="6A4-3w-lgw">
-                                        <rect key="frame" x="-2" y="-1" width="168" height="18"/>
-                                        <buttonCell key="cell" type="check" title="Place bomb to the right" bezelStyle="regularSquare" imagePosition="left" state="on" inset="2" id="o95-9d-5A9">
-                                            <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
-                                            <font key="font" metaFont="system"/>
-                                        </buttonCell>
-                                        <connections>
-                                            <binding destination="du1-sh-ACj" name="value" keyPath="values.bombRight" id="lXi-aB-Dyq"/>
-                                        </connections>
-                                    </button>
+                                    <stackView distribution="fill" orientation="horizontal" alignment="top" horizontalStackHuggingPriority="249.99998474121094" verticalStackHuggingPriority="750" detachesHiddenViews="YES" translatesAutoresizingMaskIntoConstraints="NO" id="QKa-Gf-ZeP">
+                                        <rect key="frame" x="116" y="0.0" width="208" height="40"/>
+                                        <subviews>
+                                            <textField horizontalHuggingPriority="251" verticalHuggingPriority="751" translatesAutoresizingMaskIntoConstraints="NO" id="uFg-VW-hpg">
+                                                <rect key="frame" x="-2" y="24" width="100" height="16"/>
+                                                <textFieldCell key="cell" lineBreakMode="clipping" title="Button position:" id="lnO-BT-O21">
+                                                    <font key="font" metaFont="system"/>
+                                                    <color key="textColor" name="labelColor" catalog="System" colorSpace="catalog"/>
+                                                    <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
+                                                </textFieldCell>
+                                            </textField>
+                                            <stackView distribution="fill" orientation="vertical" alignment="leading" horizontalStackHuggingPriority="249.99998474121094" verticalStackHuggingPriority="249.99998474121094" detachesHiddenViews="YES" translatesAutoresizingMaskIntoConstraints="NO" id="yuJ-23-qcq">
+                                                <rect key="frame" x="104" y="0.0" width="104" height="40"/>
+                                                <subviews>
+                                                    <button verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="UWW-kx-X2S">
+                                                        <rect key="frame" x="-2" y="23" width="98" height="18"/>
+                                                        <buttonCell key="cell" type="radio" title="Bottom Left" bezelStyle="regularSquare" imagePosition="left" alignment="left" inset="2" id="qHO-Fn-5I1">
+                                                            <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
+                                                            <font key="font" metaFont="system"/>
+                                                        </buttonCell>
+                                                        <connections>
+                                                            <action selector="buttonPosition:" target="oXU-Wp-4Ml" id="2df-LU-i5B"/>
+                                                        </connections>
+                                                    </button>
+                                                    <button verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="mDZ-he-u02">
+                                                        <rect key="frame" x="-2" y="-1" width="106" height="18"/>
+                                                        <buttonCell key="cell" type="radio" title="Bottom Right" bezelStyle="regularSquare" imagePosition="left" alignment="left" inset="2" id="oV3-gT-0pK">
+                                                            <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
+                                                            <font key="font" metaFont="system"/>
+                                                        </buttonCell>
+                                                        <connections>
+                                                            <action selector="buttonPosition:" target="oXU-Wp-4Ml" id="i8l-g5-ejf"/>
+                                                        </connections>
+                                                    </button>
+                                                </subviews>
+                                                <visibilityPriorities>
+                                                    <integer value="1000"/>
+                                                    <integer value="1000"/>
+                                                </visibilityPriorities>
+                                                <customSpacing>
+                                                    <real value="3.4028234663852886e+38"/>
+                                                    <real value="3.4028234663852886e+38"/>
+                                                </customSpacing>
+                                            </stackView>
+                                        </subviews>
+                                        <visibilityPriorities>
+                                            <integer value="1000"/>
+                                            <integer value="1000"/>
+                                        </visibilityPriorities>
+                                        <customSpacing>
+                                            <real value="3.4028234663852886e+38"/>
+                                            <real value="3.4028234663852886e+38"/>
+                                        </customSpacing>
+                                    </stackView>
                                 </subviews>
                                 <visibilityPriorities>
                                     <integer value="1000"/>
-                                    <integer value="1000"/>
                                 </visibilityPriorities>
                                 <customSpacing>
-                                    <real value="3.4028234663852886e+38"/>
                                     <real value="3.4028234663852886e+38"/>
                                 </customSpacing>
                             </stackView>
@@ -781,18 +813,22 @@
                             <constraint firstItem="kaD-UB-yzo" firstAttribute="leading" secondItem="SkV-Ud-ogX" secondAttribute="leading" constant="20" symbolic="YES" id="zLm-ci-ez1"/>
                         </constraints>
                     </view>
+                    <connections>
+                        <outlet property="bottomLeft" destination="UWW-kx-X2S" id="vha-ws-5L6"/>
+                        <outlet property="bottomRight" destination="mDZ-he-u02" id="cya-L1-hee"/>
+                    </connections>
                 </viewController>
                 <customObject id="nMC-ov-yNL" userLabel="First Responder" customClass="NSResponder" sceneMemberID="firstResponder"/>
                 <userDefaultsController representsSharedInstance="YES" id="du1-sh-ACj"/>
             </objects>
-            <point key="canvasLocation" x="699" y="669"/>
+            <point key="canvasLocation" x="699" y="582"/>
         </scene>
         <!--View Controller-->
         <scene sceneID="GRL-jJ-xfY">
             <objects>
                 <viewController id="qIu-IK-Oao" customClass="ViewController" customModule="PingPoint" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" id="REP-jc-m4q" userLabel="Outer View">
-                        <rect key="frame" x="0.0" y="0.0" width="305" height="48"/>
+                        <rect key="frame" x="0.0" y="0.0" width="350" height="48"/>
                         <autoresizingMask key="autoresizingMask"/>
                         <subviews>
                             <customView translatesAutoresizingMaskIntoConstraints="NO" id="O0K-TR-dkP" userLabel="Inset View">
@@ -861,8 +897,8 @@
                             </customView>
                         </subviews>
                         <constraints>
-                            <constraint firstAttribute="trailing" secondItem="O0K-TR-dkP" secondAttribute="trailing" constant="20" symbolic="YES" id="6E5-kz-w4e"/>
-                            <constraint firstItem="O0K-TR-dkP" firstAttribute="leading" secondItem="REP-jc-m4q" secondAttribute="leading" constant="20" symbolic="YES" id="Iev-eu-sCc"/>
+                            <constraint firstAttribute="trailing" secondItem="O0K-TR-dkP" secondAttribute="trailing" constant="65" id="6E5-kz-w4e"/>
+                            <constraint firstItem="O0K-TR-dkP" firstAttribute="leading" secondItem="REP-jc-m4q" secondAttribute="leading" constant="20" id="Iev-eu-sCc"/>
                             <constraint firstItem="O0K-TR-dkP" firstAttribute="top" secondItem="REP-jc-m4q" secondAttribute="top" id="Nge-Hh-nQL"/>
                             <constraint firstAttribute="bottom" secondItem="O0K-TR-dkP" secondAttribute="bottom" id="zPQ-rt-FPw"/>
                         </constraints>

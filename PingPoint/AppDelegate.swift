@@ -16,8 +16,7 @@ class AppDelegate: NSObject, NSApplicationDelegate {
 
     override init() {
         UserDefaults.standard.register(defaults: [
-            "showTitleBar": false,
-            "bombRight": true,
+            "floatRight": true,
         ])
     }
 

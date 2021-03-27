@@ -9,6 +9,8 @@ import Cocoa
 import Combine
 
 class ViewController: NSViewController {
+    static var lastPing = "--"
+
     @IBOutlet weak var leftButton: NSButton!
     @IBOutlet weak var rightButton: NSButton!
     @IBOutlet weak var label: NSTextField!
@@ -20,8 +22,7 @@ class ViewController: NSViewController {
     var childController: ViewController?
     var activeButton: NSButton?
     var alert: NSAlert?
-    var showTitleBarObserver: DefaultsObserver?
-    var bombOnRightObserver: DefaultsObserver?
+    var floatRightObserver: DefaultsObserver?
 
     @IBAction func leftButtonPressed(_ sender: Any) {
         buttonPressed()
@@ -53,7 +54,8 @@ class ViewController: NSViewController {
         }
     }
 
-    func setText(_ string: String, color: NSColor = .black) {
+    func setText(_ string: String = ViewController.lastPing, color: NSColor = .black) {
+        ViewController.lastPing = string
         let attributes: [NSAttributedString.Key: Any] = [
             .strokeColor: NSColor.white,
             .strokeWidth: -3,
@@ -65,19 +67,25 @@ class ViewController: NSViewController {
     }
 
     func placeWindow() {
-        let screenFrame = view.window!.screen!.frame
-        if placeRight {
-            window.setFrameOrigin(
-                NSPoint(x: screenFrame.maxX - view.frame.width, y: screenFrame.minY)
-            )
-        } else {
-            window.setFrameOrigin(screenFrame.origin)
+        if !self.isChild {
+            let screenFrame = view.window!.screen!.frame
+            if placeRight {
+                window.setFrameOrigin(
+                    NSPoint(x: screenFrame.maxX - view.frame.width, y: screenFrame.minY)
+                )
+            } else {
+                window.setFrameOrigin(screenFrame.origin)
+            }
         }
     }
 
     func gradient(value: CGFloat, low: CGFloat, high: CGFloat) -> CGFloat {
         let ratio = (value - low)/(high - low)
         return min(1.0, max(0.0, ratio))
+    }
+
+    override func viewDidLayout() {
+        placeWindow()
     }
 
     override func viewDidAppear() {
@@ -87,36 +95,29 @@ class ViewController: NSViewController {
         window.isOpaque = false
         window.backgroundColor = .clear
 
+        floatRightObserver = DefaultsObserver(
+            keyPath: "floatRight",
+            options: [.initial, .new]
+        ) { [weak self] change in
+            guard let self = self else { return }
+            self.placeRight = change![.newKey] as! Bool
+            if self.placeRight {
+                self.leftButton.isHidden = true
+                self.rightButton.isHidden = false
+                self.activeButton = self.rightButton
+            } else {
+                self.rightButton.isHidden = true
+                self.leftButton.isHidden = false
+                self.activeButton = self.leftButton
+            }
+            self.placeWindow()
+        }
+
         if isChild {
             window.setFrameOrigin(window.parent!.frame.origin)
             label.isHidden = true
-            if placeRight {
-                leftButton.isHidden = true
-                activeButton = rightButton
-            } else {
-                rightButton.isHidden = true
-                activeButton = leftButton
-            }
-
-            bombOnRightObserver = DefaultsObserver(
-                keyPath: "bombRight",
-                options: [.initial, .new]
-            ) { [weak self] change in
-                guard let self = self else { return }
-                let bombOnRight = change![.newKey] as! Bool
-                self.placeRight = bombOnRight
-                if self.placeRight {
-                    self.leftButton.isHidden = true
-                    self.rightButton.isHidden = false
-                    self.activeButton = self.rightButton
-                } else {
-                    self.rightButton.isHidden = true
-                    self.leftButton.isHidden = false
-                    self.activeButton = self.leftButton
-                }
-            }
         } else {
-            setText("--")
+            setText()
             window.windowController!.shouldCascadeWindows = false
             window.windowController!.windowFrameAutosaveName = "mainWindow"
             window.ignoresMouseEvents = true
@@ -142,22 +143,6 @@ class ViewController: NSViewController {
                         self.setText("FAIL!", color: .red)
                     }
                 }
-            }
-
-            showTitleBarObserver = DefaultsObserver(
-                keyPath: "showTitleBar",
-                options: [.initial, .new]
-            ) { [weak self] change in
-                guard let self = self else { return }
-                let showTitleBar = change![.newKey] as! Bool
-                if showTitleBar {
-                    self.window.styleMask.insert(.titled)
-                    self.window.ignoresMouseEvents = false
-                } else {
-                    self.window.styleMask.remove(.titled)
-                    self.window.ignoresMouseEvents = true
-                }
-
             }
         }
     }
