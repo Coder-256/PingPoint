@@ -72,6 +72,10 @@ class PingManager {
         helper.cancelPing()
     }
 
+    func isDockShown(reply: @escaping (Bool) -> Void) {
+        helper.isDockShown(reply: reply)
+    }
+
     deinit {
         self.connection?.invalidate()
     }

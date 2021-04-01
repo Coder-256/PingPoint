@@ -8,6 +8,8 @@
 import Cocoa
 import Combine
 
+extension AXError: Error {}
+
 class ViewController: NSViewController {
     static var lastPing = "--"
 
@@ -16,6 +18,7 @@ class ViewController: NSViewController {
     @IBOutlet weak var label: NSTextField!
 
     var pingSubscription: AnyCancellable?
+    var spaceObserver: NSObjectProtocol?
     var window: NSPanel! { view.window as? NSPanel }
     var placeRight: Bool = true
     var isChild: Bool = false
@@ -67,14 +70,28 @@ class ViewController: NSViewController {
     }
 
     func placeWindow() {
-        if !self.isChild {
-            let screenFrame = view.window!.screen!.frame
-            if placeRight {
-                window.setFrameOrigin(
-                    NSPoint(x: screenFrame.maxX - view.frame.width, y: screenFrame.minY)
-                )
-            } else {
-                window.setFrameOrigin(screenFrame.origin)
+        if !isChild {
+            print("place window")
+
+            AppDelegate.shared.pingManager.isDockShown { [weak self] dockShown in
+                DispatchQueue.main.async { [weak self] in
+                    guard let self = self else { return }
+                    print("dock shown?: \(dockShown)")
+                    let screenFrame: NSRect
+                    if dockShown {
+                        screenFrame = NSScreen.screens[0].visibleFrame
+                    } else {
+                        screenFrame = NSScreen.screens[0].frame
+                    }
+
+                    if self.placeRight {
+                        self.window.setFrameOrigin(
+                            NSPoint(x: screenFrame.maxX - self.view.frame.width, y: screenFrame.minY)
+                        )
+                    } else {
+                        self.window.setFrameOrigin(screenFrame.origin)
+                    }
+                }
             }
         }
     }
@@ -82,10 +99,6 @@ class ViewController: NSViewController {
     func gradient(value: CGFloat, low: CGFloat, high: CGFloat) -> CGFloat {
         let ratio = (value - low)/(high - low)
         return min(1.0, max(0.0, ratio))
-    }
-
-    override func viewDidLayout() {
-        placeWindow()
     }
 
     override func viewDidAppear() {
@@ -132,6 +145,14 @@ class ViewController: NSViewController {
                 window.addChildWindow(childController!.window!, ordered: .above)
             }
 
+            spaceObserver = NSWorkspace.shared.notificationCenter.addObserver(
+                forName: NSWorkspace.activeSpaceDidChangeNotification,
+                object: nil,
+                queue: .main
+            ) { [weak self] _ in
+                self?.placeWindow()
+            }
+
             pingSubscription = AppDelegate.shared.pingSubject.sink { [weak self] r in
                 DispatchQueue.main.async { [weak self] in
                     guard let self = self else { return }
@@ -145,5 +166,9 @@ class ViewController: NSViewController {
                 }
             }
         }
+    }
+
+    override func viewWillDisappear() {
+        NSWorkspace.shared.notificationCenter.removeObserver(spaceObserver as Any)
     }
 }

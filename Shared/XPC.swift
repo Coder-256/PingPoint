@@ -12,6 +12,7 @@ import Foundation
     func update(base: Int, args: [String])
     func resumePing()
     func cancelPing()
+    func isDockShown(reply: @escaping (Bool) -> Void)
     /// Replies with an Int32 status (stored in a `NSNumber` for XPC)
     func nuke(reply: @escaping (NSNumber) -> Void)
 }

@@ -15,6 +15,7 @@
 		5D1AEBEB25F7EE630016716E /* PingHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5D1AEBE725F7EE630016716E /* PingHelper.swift */; };
 		5D1AEBEE25F7EE6D0016716E /* XPC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5D1AEBC925F7EE270016716E /* XPC.swift */; };
 		5D743A5E2605C66400FFC10E /* DefaultsObserver.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5D743A5D2605C66400FFC10E /* DefaultsObserver.swift */; };
+		5D812ECF26152DB9008EB406 /* Accessibility.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5D812ECE26152DB9008EB406 /* Accessibility.swift */; };
 		5DA4759A260FB7D8007C465D /* PreferencesViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5DA47599260FB7D8007C465D /* PreferencesViewController.swift */; };
 		5DAD3A8E25F8404E00056F55 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5DAD3A8D25F8404E00056F55 /* ViewController.swift */; };
 		5DBE5D2025F7C64100945840 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5DBE5D1F25F7C64100945840 /* AppDelegate.swift */; };
@@ -56,6 +57,7 @@
 		5D1AEBE625F7EE630016716E /* main.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = main.swift; sourceTree = "<group>"; };
 		5D1AEBE725F7EE630016716E /* PingHelper.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PingHelper.swift; sourceTree = "<group>"; };
 		5D743A5D2605C66400FFC10E /* DefaultsObserver.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DefaultsObserver.swift; sourceTree = "<group>"; };
+		5D812ECE26152DB9008EB406 /* Accessibility.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Accessibility.swift; sourceTree = "<group>"; };
 		5DA47599260FB7D8007C465D /* PreferencesViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PreferencesViewController.swift; sourceTree = "<group>"; };
 		5DAD3A8D25F8404E00056F55 /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
 		5DBE5D1C25F7C64100945840 /* PingPoint.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = PingPoint.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -96,6 +98,7 @@
 		5D1AEBD125F7EE470016716E /* PingHelper */ = {
 			isa = PBXGroup;
 			children = (
+				5D812ECE26152DB9008EB406 /* Accessibility.swift */,
 				5D1AEBE725F7EE630016716E /* PingHelper.swift */,
 				5D1AEBE525F7EE630016716E /* ReadLines.swift */,
 				5D1AEBE625F7EE630016716E /* main.swift */,
@@ -243,6 +246,7 @@
 			files = (
 				5D1AEBE925F7EE630016716E /* ReadLines.swift in Sources */,
 				5D1AEBEE25F7EE6D0016716E /* XPC.swift in Sources */,
+				5D812ECF26152DB9008EB406 /* Accessibility.swift in Sources */,
 				5D1AEBEB25F7EE630016716E /* PingHelper.swift in Sources */,
 				5D1AEBEA25F7EE630016716E /* main.swift in Sources */,
 			);

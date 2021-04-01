@@ -8,6 +8,7 @@
 import Combine
 import Foundation
 import System
+import AppKit
 
 let responseRegex = try! NSRegularExpression(pattern: #"icmp_seq=([0-9]+).*time=([0-9.]+) ms"#)
 let timeoutRegex = try! NSRegularExpression(pattern: #"Request timeout for icmp_seq ([0-9]+)"#)
@@ -37,6 +38,15 @@ class PingHelper {
                 self.stopProcess()
             }
         }
+    }
+
+    func stopProcess() {
+        // `Process.interrupt()` sends SIGINT, `Process.terminate()` sends SIGTERM
+        // Send SIGKILL instead
+        if let pid = process?.processIdentifier { kill(pid, SIGKILL) }
+        process = nil
+        outputSink = nil
+        errorSink = nil
     }
 
     deinit {
@@ -84,7 +94,7 @@ extension PingHelper: PingHelperProtocol {
         let outputSubject = PassthroughSubject<String?, Never>()
         outputSink = outputSubject.sink { [unowned self] line in
             guard let line = line else { print("STDOUT: DECODE FAILED"); return }
-            print("line: \(line) --> ", terminator: "")
+            // print("line: \(line) --> ", terminator: "")
             let range = NSRange(location: 0, length: line.utf16.count)
 
             if
@@ -92,7 +102,7 @@ extension PingHelper: PingHelperProtocol {
                 let seq = Int((line as NSString).substring(with: matched.range(at: 1))),
                 let pingMs = Double((line as NSString).substring(with: matched.range(at: 2)))
             {
-                print("ping seq: \(seq), ms: \(pingMs)")
+                // print("ping seq: \(seq), ms: \(pingMs)")
                 resetTimeout()
                 nextBase = max(nextBase, base + seq + 1)
                 reverse.gotPing(number: base + seq, ping: pingMs, success: true)
@@ -131,13 +141,48 @@ extension PingHelper: PingHelperProtocol {
         keepAliveCallback = nil
     }
 
-    func stopProcess() {
-        // `Process.interrupt()` sends SIGINT, `Process.terminate()` sends SIGTERM
-        // Send SIGKILL instead
-        if let pid = process?.processIdentifier { kill(pid, SIGKILL) }
-        process = nil
-        outputSink = nil
-        errorSink = nil
+    private func contains(rect: CGRect, point: CGSize) -> Bool {
+        return rect.minX <= point.width &&
+            rect.maxX >= point.width &&
+            rect.minY <= point.height &&
+            rect.maxY >= point.height
+    }
+
+    private func getFirstDisplay(with point: CGPoint) throws -> CGDirectDisplayID? {
+        var displayCount: UInt32 = 0
+        var display: CGDirectDisplayID = 0
+        CGGetDisplaysWithPoint(point, 1, &display, &displayCount)
+        if displayCount == 1 {
+            return display
+        } else {
+            return nil
+        }
+    }
+
+    func isDockShown(reply: @escaping (Bool) -> Void) {
+        print("helper:", UIElement.isTrusted)
+        do {
+            let dock = UIElement.getDock()
+            let list = try dock.getChildren()[0]
+            guard let position: CGPoint = try list.convertedValue(for: kAXPositionAttribute, type: .cgPoint, zeroed: CGPoint())
+            else {
+                print("unable to get dock position")
+                reply(true)
+                return
+            }
+            guard let dockScreen = try getFirstDisplay(with: position) else {
+                print("unable to get dock screen")
+                reply(true)
+                return
+            }
+            let dockScreenFrame = CGDisplayBounds(dockScreen)
+            let dockOverlap = dockScreenFrame.maxY - position.y
+            print("dock overlap:", dockOverlap)
+            reply(dockOverlap > 10)
+        } catch {
+            print("accessibility error:", error)
+            reply(true)
+        }
     }
 
     func nuke(reply: @escaping (NSNumber) -> Void) {

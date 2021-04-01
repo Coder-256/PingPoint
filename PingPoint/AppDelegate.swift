@@ -15,14 +15,13 @@ class AppDelegate: NSObject, NSApplicationDelegate {
     var pingSubject = PassthroughSubject<PingResult, Never>()
 
     override init() {
+        super.init()
+
         UserDefaults.standard.register(defaults: [
             "floatRight": true,
         ])
-    }
 
-    func applicationDidFinishLaunching(_ aNotification: Notification) {
-        // Insert code here to initialize your application
-        pingManager = PingManager(args: ["1.1.1.1"]) { [unowned self] in pingSubject.send($0) }
-        pingManager.resume()
+        self.pingManager = PingManager(args: ["1.1.1.1"]) { [unowned self] in pingSubject.send($0) }
+        self.pingManager.resume()
     }
 }
